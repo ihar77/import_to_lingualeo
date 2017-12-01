@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import urllib
 import urllib2
 import json
@@ -13,19 +15,18 @@ class Lingualeo:
     def auth(self):
         url = "http://api.lingualeo.com/api/login"
         values = {
-                "email": self.email,
-                "password": self.password
-                }
+            "email": self.email,
+            "password": self.password
+        }
 
         return self.get_content(url, values)
 
-    def add_word(self, word, tword, context):
+    def add_word(self, word, tword):
         url = "http://api.lingualeo.com/addword"
         values = {
-                "word": word,
-                "tword": tword,
-                "context": context,
-                }
+            "word": word,
+            "tword": tword
+        }
         self.get_content(url, values)
 
     def get_translates(self, word):
@@ -35,10 +36,10 @@ class Lingualeo:
             result = self.get_content(url, {})
             translate = result["translate"][0]
             return {
-                    "is_exist": translate["is_user"],
-                    "word": word,
-                    "tword": translate["value"].encode("utf-8")
-                    }
+                "is_exist": translate["is_user"],
+                "word": word,
+                "tword": translate["value"].encode("utf-8")
+            }
         except Exception as e:
             return e.message
 
